@@ -21,6 +21,8 @@ public class Main {
             // should no longer be part of the scraping queue
             String url = pagesToScrape.remove(0);
 
+            pagesDiscovered.add(url);
+
             // initializing the HTML Document page variable
             Document doc;
 
