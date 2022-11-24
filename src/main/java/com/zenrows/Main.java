@@ -89,7 +89,7 @@ public class Main {
         List<String> pagesToScrape = Collections.synchronizedList(new ArrayList<>());
         // initializing the scraping queue with the
         // first pagination page
-        pagesToScrape.add("https://scrapeme.live/shop/page/1");
+        pagesToScrape.add("https://scrapeme.live/shop/page/1/");
 
         // initializing the ExecutorService to run the
         // web scraping process in parallel on 4 pages at a time
@@ -103,7 +103,7 @@ public class Main {
             // registering the web scraping task
             executorService.execute(() -> scrapeProductPage(pokemonProducts, pagesDiscovered, pagesToScrape));
 
-            // adding a 200ms delay to avoid overloading the server
+            // adding a 200ms delay for avoid overloading the server
             TimeUnit.MILLISECONDS.sleep(200);
         }
 
@@ -111,7 +111,7 @@ public class Main {
         executorService.shutdown();
         executorService.awaitTermination(300, TimeUnit.SECONDS);
 
-        System.out.println(pokemonProducts);
+        System.out.println(pokemonProducts.size());
 
         // writing the scraped data to a db or export it to a file...
     }
