@@ -101,15 +101,23 @@ public class Main {
         // urls and take advantage of the parallelization process
         scrapeProductPage(pokemonProducts, pagesDiscovered, pagesToScrape);
 
-        while (!pagesToScrape.isEmpty()) {
+        // the number of iteration executed
+        int i = 1;
+        // to limit the number to scrape to 5
+        int limit = 10;
+
+        while (!pagesToScrape.isEmpty() && i < limit) {
             // registering the web scraping task
             executorService.execute(() -> scrapeProductPage(pokemonProducts, pagesDiscovered, pagesToScrape));
 
             // adding a 200ms delay for avoid overloading the server
             TimeUnit.MILLISECONDS.sleep(200);
+
+            // incrementing the iteration number
+            i++;
         }
 
-        // waiting 300 seconds to all pending tasks to end
+        // waiting up to 300 seconds to all pending tasks to end
         executorService.shutdown();
         executorService.awaitTermination(300, TimeUnit.SECONDS);
 
